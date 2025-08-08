@@ -81,9 +81,6 @@
         border-bottom:2px solid #111;
         padding-bottom:0;
       }
-      @supports (-webkit-touch-callout:none){
-        .input-wrap{ border-bottom-width:2px; }
-      }
 
   .email-input {
   border: 0;
@@ -97,7 +94,7 @@
 }
   .email-input::placeholder {
   position: relative;
-  top: 5px; /* adjust until baseline matches underline */
+  top: 1px; /* adjust until baseline matches underline */
 }
       @keyframes placeholderFade{
         0%,100%{opacity:1}
