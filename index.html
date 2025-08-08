@@ -85,13 +85,17 @@
         .input-wrap{ border-bottom-width:2px; }
       }
 
-      .email-input{
-        border:none;
-        padding:2px 6px 0 6px;
-        font-size:16px;
-        line-height:1;
-      }
-.email-input::placeholder {
+  .email-input {
+  border: 0;
+  box-shadow: none;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1; /* tight text box */
+  padding: 0 6px 0 6px; /* no vertical padding */
+  display: flex;
+  align-items: flex-end; /* align text to bottom */
+}
+  .email-input::placeholder {
   position: relative;
   top: 2px; /* adjust until baseline matches underline */
 }
