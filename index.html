@@ -34,8 +34,8 @@
     }
     .logo {
       width: 180px; height: 180px;
-      margin-bottom: 130px; /* adjusted gap */
-      margin-top: -100px; /* nudged image up by 100px */
+      margin-bottom: 130px;
+      margin-top: -100px;
       display: block; object-fit: contain;
     }
     .inline-form {
@@ -72,7 +72,7 @@
     footer {
       flex-shrink: 0;
       text-align: center;
-      padding: 20px 16px;
+      padding: 40px 16px; /* more top/bottom space */
       background: #000;
       color: #fff;
     }
@@ -81,18 +81,37 @@
       gap: 18px;
       justify-content: center;
       align-items: center;
-      margin-bottom: 18px;
+      margin-top: 20px; /* space above IG icon */
+      margin-bottom: 28px; /* space between IG icon and copyright */
     }
     .ig { width: 22px; height: 22px; color: #fff; }
     .copyright {
       font-size: 12px;
       text-transform: uppercase;
       color: #fff;
+      display: block; /* ensure visible on desktop */
     }
     @media (max-width: 768px) {
-      .inline-form { flex-direction: column; gap: 12px; width: 100%; }
-      .email-input, .submit-btn { width: 100%; font-size: 16px; }
-      .logo { width: 140px; height: 140px; margin-bottom: 120px; margin-top: -80px; }
+      .inline-form {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        align-items: center;
+      }
+      .email-input {
+        width: 100%;
+        font-size: 14px;
+      }
+      .email-input::placeholder {
+        font-size: 14px;
+      }
+      .submit-btn {
+        width: auto;
+        font-size: 16px;
+      }
+      .logo {
+        width: 140px; height: 140px; margin-bottom: 120px; margin-top: -80px;
+      }
     }
   </style>
 </head>
