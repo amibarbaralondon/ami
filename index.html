@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ami Barbara — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #9a9a9a;
+      --border: #111111;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+    .wrap {
+      display: grid;
+      place-items: center;
+      padding: 48px 24px;
+    }
+    .stack { width: 100%; max-width: 880px; text-align: center; }
+    .logo {
+      width: 180px; height: 180px; margin: 24px auto 40px auto; display: block; object-fit: contain;
+    }
+    .tagline {
+      margin: 0 auto 18px auto;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .rule { height: 1px; width: min(540px, 90%); background: #dcdcdc; margin: 18px auto 28px auto; }
+    .cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 10px 22px; border: 2px solid var(--border); background: transparent; color: var(--fg);
+      text-decoration: none; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;
+      transition: transform 120ms ease, background-color 120ms ease;
+    }
+    .cta:hover { transform: translateY(-1px); background: #f4f4f4; }
+    .jp { font-size: 16px; }
+
+    footer { text-align: center; padding: 40px 16px; color: var(--muted); }
+    .socials { display: flex; gap: 18px; justify-content: center; align-items: center; margin-bottom: 16px; }
+    .ig { width: 22px; height: 22px; display: inline-block; color: black; }
+    .dot { width: 6px; height: 6px; background: var(--muted); border-radius: 999px; display: inline-block; margin: 0 10px; }
+    .copyright { font-size: 12px; text-transform: uppercase; }
+
+    @media (max-width: 480px) {
+      .logo { width: 140px; height: 140px; margin-bottom: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="stack">
+      <img class="logo" src="logo.png" alt="Ami Barbara logo" />
+      <p class="tagline">SIGN IN, WE'VE BEEN EXPECTING YOU 👻</p>
+      <div class="rule"></div>
+      <a class="cta" href="#subscribe" id="open-modal"> <span class="jp">登録</span> </a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="socials">
+      <a href="https://instagram.com/" target="_blank" rel="noopener">
+        <svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+        </svg>
+      </a>
+    </div>
+    <div class="copyright">Copyright © 2025 Ami Barbara. All rights reserved.</div>
+  </footer>
+
+  <dialog id="modal" style="border:none; padding:0; width:min(520px, 92vw);">
+    <div style="background:#fff; border:2px solid #111; padding:18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <strong style="letter-spacing:0.04em;">Join the list</strong>
+        <button id="close-modal" style="border:1px solid #111; background:transparent; padding:4px 8px; cursor:pointer;">Close</button>
+      </div>
+      <form action="https://formspree.io/f/yourcode" method="POST" style="display:flex;">
+        <input type="email" name="email" required placeholder="your@email" style="flex:1; border:1px solid #111; padding:10px;">
+        <button type="submit" style="border:2px solid #111; background:transparent; padding:10px 16px; font-weight:600; cursor:pointer;">Submit</button>
+      </form>
+      <p style="color:#666; font-size:12px; margin-top:10px;">We only email when there is real news. No spam.</p>
+    </div>
+  </dialog>
+
+  <script>
+    const open = document.getElementById('open-modal');
+    const modal = document.getElementById('modal');
+    const close = document.getElementById('close-modal');
+    if (open && modal && modal.showModal) {
+      open.addEventListener('click', e => { e.preventDefault(); modal.showModal(); });
+      close.addEventListener('click', () => modal.close());
+    } else {
+      open?.setAttribute('href', 'mailto:hello@yourdomain');
+    }
+  </script>
+</body>
+</html>
