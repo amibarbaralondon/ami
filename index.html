@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#fff; --fg:#111; --muted:#9a9a9a; --border:#111; }
+    :root { --bg:#fff; --fg:#111; }
     * { box-sizing:border-box; }
     html,body { height:100%; margin:0; }
     body {
@@ -25,72 +25,114 @@
 
     .inline-form { display:flex; justify-content:center; align-items:center; gap:20px; width:min(600px,90%); }
 
-    /* Desktop input */
-    .input-wrap { flex:0 0 70%; border:none; }
+    /* Shared underline for desktop + mobile */
+    .input-wrap {
+      position:relative;
+      flex:0 0 70%;
+      width:100%;
+    }
+    .input-wrap::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:1px;
+      background:#111;
+    }
+    /* Retina hairline on iOS */
+    @supports (-webkit-touch-callout:none){
+      .input-wrap::after{
+        transform:scaleY(0.5);
+        transform-origin:bottom;
+      }
+    }
+
     .email-input{
       width:100%;
-      border:none; border-bottom:1px solid #111;
-      padding:12px 6px 10px 6px;
-      font-size:16px; outline:none; text-align:left;
-      background:transparent; border-radius:0; -webkit-appearance:none; appearance:none; box-shadow:none;
+      border:none !important;
+      padding:12px 6px 0 6px; /* zero bottom padding = text close to line */
+      font-size:16px;
+      outline:none;
+      text-align:left;
+      background:transparent;
+      border-radius:0;
+      -webkit-appearance:none;
+      appearance:none;
+      box-shadow:none !important;
     }
-    @supports (-webkit-touch-callout:none){ .email-input{ border-bottom-width:0.5px; } }
-    input.email-input:-webkit-autofill{ -webkit-box-shadow:0 0 0 1000px #fff inset; -webkit-text-fill-color:#111; }
-    .email-input::placeholder{ color:#555; letter-spacing:0.02em; }
+
+    input.email-input:-webkit-autofill{
+      -webkit-box-shadow:0 0 0 1000px #fff inset;
+      -webkit-text-fill-color:#111;
+    }
+    .email-input::placeholder{
+      color:#555;
+      letter-spacing:0.02em;
+      animation:placeholderFade 4s ease-in-out infinite;
+    }
+    @keyframes placeholderFade{
+      0%,100%{opacity:1}
+      50%{opacity:0}
+    }
 
     .submit-btn{
-      flex:0 0 auto; border:2px solid #111; background:transparent;
-      padding:10px 26px; font-weight:700; letter-spacing:0.04em; cursor:pointer; font-size:18px; color:#111;
+      flex:0 0 auto;
+      border:2px solid #111;
+      background:transparent;
+      padding:10px 26px;
+      font-weight:700;
+      letter-spacing:0.04em;
+      cursor:pointer;
+      font-size:18px;
+      color:#111;
     }
     .submit-btn:hover{ background:#fff; }
 
     footer{
-      flex-shrink:0; text-align:center; padding:28px 16px; background:#000; color:#fff;
-      display:flex; flex-direction:column; align-items:center;
+      flex-shrink:0;
+      text-align:center;
+      padding:28px 16px;
+      background:#000;
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
     }
-    .socials{ display:flex; gap:18px; justify-content:center; align-items:center; margin-top:0; margin-bottom:28px; }
+    .socials{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      align-items:center;
+      margin-top:0;
+      margin-bottom:28px;
+    }
     .ig{ width:28px; height:28px; color:#fff; }
-    .copyright{ font-size:12px; text-transform:uppercase; color:#fff; display:block; }
+    .copyright{
+      font-size:12px;
+      text-transform:uppercase;
+      color:#fff;
+      display:block;
+    }
 
     /* Mobile overrides */
     @media (max-width:768px){
-      .inline-form{ flex-direction:column; gap:20px; width:100%; align-items:center; }
-
-      /* Wrapper draws underline exactly */
-      .input-wrap{ position:relative; width:100%; }
-      .input-wrap::after{
-        content:""; position:absolute; left:0; right:0; bottom:0;
-        height:1px; background:#111; transform:translateY(0.5px);
-      }
-      /* Retina hairline fix for iOS */
-      @supports (-webkit-touch-callout:none){
-        .input-wrap::after{
-          transform:translateY(0.5px) scaleY(0.5);
-          transform-origin:bottom;
-        }
-      }
-
-      /* Tight placeholder-to-line spacing */
-      .email-input{
+      .inline-form{
+        flex-direction:column;
+        gap:20px;
         width:100%;
-        font-size:16px;
-        line-height:1;
-        padding:3px 6px 0 6px; /* no bottom pad */
-        border:0 !important;
-        border-bottom:0 !important;
-        box-shadow:none !important;
-        background:transparent;
+        align-items:center;
       }
-
-      @keyframes placeholderFade{ 0%,100%{opacity:1} 50%{opacity:0} }
-      .email-input::placeholder{ animation:placeholderFade 4s ease-in-out infinite; }
-
-      .submit-btn{ width:40%; font-size:18px; padding:12px 26px; margin-top:14px; color:#111; }
-
-      .logo{ width:140px; height:140px; margin-bottom:100px; margin-top:-80px; }
-
-      footer{ padding-top:28px; padding-bottom:28px; }
-      .socials{ margin-top:0; }
+      .logo{
+        width:140px;
+        height:140px;
+        margin-bottom:100px;
+        margin-top:-80px;
+      }
+      .submit-btn{
+        width:40%;
+        font-size:18px;
+        padding:12px 26px;
+        margin-top:14px;
+      }
     }
   </style>
 </head>
