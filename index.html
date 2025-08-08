@@ -45,8 +45,11 @@
       gap: 20px;
       width: min(600px, 90%);
     }
+    .input-wrap {
+      flex: 0 0 70%; /* desktop default */
+    }
     .email-input {
-      flex: 0 0 70%;
+      width: 100%;
       border: none;
       border-bottom: 1px solid #111;
       padding: 12px 6px 10px 6px;
@@ -82,7 +85,6 @@
       color: #111;
     }
     .submit-btn:hover { background: #ffffff; }
-
     footer {
       flex-shrink: 0;
       text-align: center;
@@ -108,8 +110,6 @@
       color: #fff;
       display: block;
     }
-
-    /* Mobile tweaks */
     @media (max-width: 768px) {
       .inline-form {
         flex-direction: column;
@@ -117,27 +117,27 @@
         width: 100%;
         align-items: center;
       }
-
-      /* wrapper draws the underline; lets us place it tight to text on iOS */
       .input-wrap {
         width: 100%;
         border-bottom: 1px solid #111;
-        padding-bottom: 2px; /* distance from text to line */
+        padding-bottom: 2px; /* tight underline */
       }
       @supports (-webkit-touch-callout: none) {
         .input-wrap { border-bottom-width: 0.5px; }
       }
-
       .email-input {
-        width: 100%;
+        border: none; /* remove default border */
+        padding: 2px 6px 0 6px; /* adjust for tightness */
         font-size: 16px;
-        line-height: 1;
-        padding: 2px 6px 0 6px; /* no bottom padding */
-        border: 0;              /* no own border */
-        box-shadow: none;       /* ensure no inset line from earlier */
+        line-height: 1.2;
       }
-      .email-input::placeholder { font-size: 16px; }
-
+      @keyframes placeholderFade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      .email-input::placeholder {
+        animation: placeholderFade 4s ease-in-out infinite;
+      }
       .submit-btn {
         width: 40%;
         font-size: 18px;
@@ -148,12 +148,6 @@
       .logo {
         width: 140px; height: 140px; margin-bottom: 100px; margin-top: -80px;
       }
-      footer { padding-top: 28px; padding-bottom: 28px; }
-      .socials { margin-top: 0; }
-
-      /* placeholder fade loop */
-      @keyframes placeholderFade { 0%,100%{opacity:1;} 50%{opacity:0;} }
-      .email-input::placeholder { animation: placeholderFade 4s ease-in-out infinite; }
     }
   </style>
 </head>
@@ -168,7 +162,6 @@
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none;">
     </form>
   </main>
-
   <footer>
     <div class="socials">
       <a href="https://instagram.com/" target="_blank" rel="noopener">
@@ -181,24 +174,15 @@
     </div>
     <div class="copyright">COPYRIGHT © 2025 AMI BARBARA - ALL RIGHTS RESERVED.</div>
   </footer>
-
   <script>
     const form = document.getElementById('signup');
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = new FormData(form);
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          alert("Thanks — you're on the list.");
-        } else {
-          alert("Sorry, something went wrong. Try again later.");
-        }
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (res.ok) { form.reset(); alert("Thanks — you're on the list."); }
+        else { alert("Sorry, something went wrong. Try again later."); }
       });
     }
   </script>
