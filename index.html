@@ -117,14 +117,16 @@
         width: 100%;
         font-size: 16px; /* same as desktop */
         border-bottom: 1px solid #111; /* keep same underline style */
+        line-height: 1;              /* brings underline closer to placeholder text */
+        padding-bottom: 4px;         /* reduces space between text and underline */
       }
       .email-input::placeholder {
-        font-size: 18px; /* same as desktop */
+        font-size: 16px; /* same as desktop */
       }
       .submit-btn {
         width: auto; /* preserve button size */
         font-size: 18px; /* keep same size as desktop */
-        padding: 10px 26px; /* preserve padding */
+        padding: 12px 26px; /* preserve padding */
         color: #111; /* black text */
       }
       .logo {
@@ -145,10 +147,10 @@
   <footer>
     <div class="socials">
       <a href="https://instagram.com/" target="_blank" rel="noopener">
-        <svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+        <svg class="ig" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+  <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
         </svg>
       </a>
     </div>
