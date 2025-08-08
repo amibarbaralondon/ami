@@ -82,6 +82,7 @@
       color: #111;
     }
     .submit-btn:hover { background: #ffffff; }
+
     footer {
       flex-shrink: 0;
       text-align: center;
@@ -107,6 +108,8 @@
       color: #fff;
       display: block;
     }
+
+    /* Mobile tweaks */
     @media (max-width: 768px) {
       .inline-form {
         flex-direction: column;
@@ -114,17 +117,27 @@
         width: 100%;
         align-items: center;
       }
+
+      /* wrapper draws the underline; lets us place it tight to text on iOS */
+      .input-wrap {
+        width: 100%;
+        border-bottom: 1px solid #111;
+        padding-bottom: 2px; /* distance from text to line */
+      }
+      @supports (-webkit-touch-callout: none) {
+        .input-wrap { border-bottom-width: 0.5px; }
+      }
+
       .email-input {
         width: 100%;
         font-size: 16px;
-        line-height: 0.5;           /* keep text compact */
-        padding: 2px 6px 0 6px;   /* ↓ zero bottom padding */
-        border-bottom: 0;         /* no regular border */
-        box-shadow: inset 0 -1px 0 #111; /* draw the underline at the very bottom */
+        line-height: 1;
+        padding: 2px 6px 0 6px; /* no bottom padding */
+        border: 0;              /* no own border */
+        box-shadow: none;       /* ensure no inset line from earlier */
       }
-      .email-input::placeholder {
-        font-size: 16px;
-      }
+      .email-input::placeholder { font-size: 16px; }
+
       .submit-btn {
         width: 40%;
         font-size: 18px;
@@ -135,32 +148,27 @@
       .logo {
         width: 140px; height: 140px; margin-bottom: 100px; margin-top: -80px;
       }
-      footer {
-        padding-top: 28px;
-        padding-bottom: 28px;
-      }
-      .socials {
-        margin-top: 0;
-      }
-      @keyframes placeholderFade {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-      }
-      .email-input::placeholder {
-       animation: placeholderFade 4s ease-in-out infinite;
-      }
+      footer { padding-top: 28px; padding-bottom: 28px; }
+      .socials { margin-top: 0; }
+
+      /* placeholder fade loop */
+      @keyframes placeholderFade { 0%,100%{opacity:1;} 50%{opacity:0;} }
+      .email-input::placeholder { animation: placeholderFade 4s ease-in-out infinite; }
     }
   </style>
 </head>
 <body>
   <main>
     <img class="logo" src="logo.png" alt="Ami Barbara logo" />
-    <form id="signup" action="https://formspree.io/forms/xrblovkv/integration" method="POST" class="inline-form" autocomplete="email">
-      <input type="email" name="email" required placeholder="SIGN IN, WE'VE BEEN EXPECTING YOU 👻" aria-label="Email address" class="email-input">
+    <form id="signup" action="https://formspree.io/f/xrblovkv" method="POST" class="inline-form" autocomplete="email">
+      <div class="input-wrap">
+        <input type="email" name="email" required placeholder="SIGN IN, WE'VE BEEN EXPECTING YOU 👻" aria-label="Email address" class="email-input">
+      </div>
       <button type="submit" class="submit-btn"><span class="jp">登録</span></button>
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none;">
     </form>
   </main>
+
   <footer>
     <div class="socials">
       <a href="https://instagram.com/" target="_blank" rel="noopener">
@@ -173,15 +181,24 @@
     </div>
     <div class="copyright">COPYRIGHT © 2025 AMI BARBARA - ALL RIGHTS RESERVED.</div>
   </footer>
+
   <script>
     const form = document.getElementById('signup');
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = new FormData(form);
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-        if (res.ok) { form.reset(); alert("Thanks — you're on the list."); }
-        else { alert("Sorry, something went wrong. Try again later."); }
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          alert("Thanks — you're on the list.");
+        } else {
+          alert("Sorry, something went wrong. Try again later.");
+        }
       });
     }
   </script>
