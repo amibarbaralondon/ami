@@ -53,6 +53,20 @@
       font-size: 18px;
       outline: none;
       text-align: left;
+      background: transparent;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      box-shadow: none;
+    }
+    /* iOS hairline tweak */
+    @supports (-webkit-touch-callout: none) {
+      .email-input { border-bottom-width: 0.5px; }
+    }
+    /* Safari autofill fix */
+    input.email-input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+      -webkit-text-fill-color: #111;
     }
     .email-input::placeholder {
       color: #555;
@@ -67,37 +81,31 @@
       letter-spacing: 0.04em;
       cursor: pointer;
       font-size: 18px;
-      color: #111;
+      color: #111; /* black text */
     }
     .submit-btn:hover { background: #f4f4f4; }
-
     footer {
       flex-shrink: 0;
+      text-align: center;
+      padding: 50px 16px; /* more top/bottom space */
       background: #000;
       color: #fff;
-      text-align: center;
-      padding: 48px 16px; /* equal space top/bottom */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px; /* space between IG icon and copyright */
     }
     .socials {
       display: flex;
       gap: 18px;
       justify-content: center;
       align-items: center;
-      margin: 0; /* no extra margins */
+      margin-top: 30px; /* space above IG icon */
+      margin-bottom: 30px; /* space between IG icon and copyright */
     }
     .ig { width: 22px; height: 22px; color: #fff; }
     .copyright {
       font-size: 12px;
       text-transform: uppercase;
       color: #fff;
-      margin: 0;
-      display: block;
+      display: block; /* ensure visible on desktop */
     }
-
     @media (max-width: 768px) {
       .inline-form {
         flex-direction: column;
@@ -107,22 +115,20 @@
       }
       .email-input {
         width: 100%;
-        font-size: 16px; /* same as desktop */
-        border-bottom: 1px solid #111;
+        font-size: 18px; /* same as desktop */
+        border-bottom: 1px solid #111; /* keep same underline style */
       }
       .email-input::placeholder {
-        font-size: 16px;
+        font-size: 18px; /* same as desktop */
       }
       .submit-btn {
         width: auto; /* preserve button size */
-        font-size: 18px;
-        padding: 10px 30px;
-        color: #111;
+        font-size: 18px; /* keep same size as desktop */
+        padding: 10px 26px; /* preserve padding */
+        color: #111; /* black text */
       }
       .logo {
-        width: 140px; height: 140px;
-        margin-bottom: 120px;
-        margin-top: -80px;
+        width: 140px; height: 140px; margin-bottom: 120px; margin-top: -80px;
       }
     }
   </style>
@@ -155,12 +161,8 @@
         e.preventDefault();
         const data = new FormData(form);
         const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-        if (res.ok) {
-          form.reset();
-          alert("Thanks — you're on the list.");
-        } else {
-          alert("Sorry, something went wrong. Try again later.");
-        }
+        if (res.ok) { form.reset(); alert("Thanks — you're on the list."); }
+        else { alert("Sorry, something went wrong. Try again later."); }
       });
     }
   </script>
