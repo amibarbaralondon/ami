@@ -25,12 +25,11 @@
 
     .inline-form { display:flex; justify-content:center; align-items:center; gap:20px; width:min(600px,90%); }
 
-    /* Desktop: keep original proportions and underline inside input */
+    /* Desktop input */
     .input-wrap { flex:0 0 70%; border:none; }
-
     .email-input{
       width:100%;
-      border:none; border-bottom:1px solid #111;  /* desktop underline (1px) */
+      border:none; border-bottom:1px solid #111;
       padding:12px 6px 10px 6px;
       font-size:16px; outline:none; text-align:left;
       background:transparent; border-radius:0; -webkit-appearance:none; appearance:none; box-shadow:none;
@@ -57,21 +56,30 @@
     @media (max-width:768px){
       .inline-form{ flex-direction:column; gap:20px; width:100%; align-items:center; }
 
-      /* Wrapper draws the underline precisely */
+      /* Wrapper draws underline exactly */
       .input-wrap{ position:relative; width:100%; }
       .input-wrap::after{
         content:""; position:absolute; left:0; right:0; bottom:0;
-        height:1px; background:#111;             /* base 1px line */
+        height:1px; background:#111; transform:translateY(0.5px);
       }
-      /* Retina hairline on iOS */
+      /* Retina hairline fix for iOS */
       @supports (-webkit-touch-callout:none){
-        .input-wrap::after{ transform:scaleY(0.5); transform-origin:bottom; }
+        .input-wrap::after{
+          transform:translateY(0.5px) scaleY(0.5);
+          transform-origin:bottom;
+        }
       }
 
+      /* Tight placeholder-to-line spacing */
       .email-input{
-        border:0; box-shadow:none;
-        width:100%; font-size:16px; line-height:1;
-        padding:0 6px 0 6px; /* no bottom padding = text sits close to line */
+        width:100%;
+        font-size:16px;
+        line-height:1;
+        padding:3px 6px 0 6px; /* no bottom pad */
+        border:0 !important;
+        border-bottom:0 !important;
+        box-shadow:none !important;
+        background:transparent;
       }
 
       @keyframes placeholderFade{ 0%,100%{opacity:1} 50%{opacity:0} }
@@ -118,7 +126,7 @@
         e.preventDefault();
         const data = new FormData(form);
         const res = await fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' }});
-        if(res.ok){ form.reset(); alert("Arigatō — you're in 👹"); }
+        if(res.ok){ form.reset(); alert("Thanks — you're on the list."); }
         else{ alert("Sorry, something went wrong. Try again later."); }
       });
     }
