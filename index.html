@@ -126,7 +126,7 @@
         e.preventDefault();
         const data = new FormData(form);
         const res = await fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' }});
-        if(res.ok){ form.reset(); alert("Thanks — you're on the list."); }
+        if(res.ok){ form.reset(); alert("Arigatō — you're in 👹"); }
         else{ alert("Sorry, something went wrong. Try again later."); }
       });
     }
